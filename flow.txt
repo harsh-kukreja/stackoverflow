@@ -1,0 +1,12 @@
+Check for the Mutator concept in Question model
+Factory for Questioon was created
+Now after that we are displaying all questions so paginate ka css change karna tha
+
+compact method vala concept in QuestionsController@index
+
+toh php artisan vendor:publish toh iske liye apne ko paginate vala opetion dalne ka voh automatically resources ke vendor me copy karega and dalega pura folder
+
+
+Accesser in Question
+
+
