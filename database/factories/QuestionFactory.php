@@ -11,7 +11,7 @@ $factory->define(Question::class, function (Faker $faker) {
         //slug set kiya hai in QuestionModel using mutator so check tha
         'body' => $faker->paragraphs(rand(3,7),true),
         'views_count' => rand(0,10),
-        'answers_count' => rand(0,10),
+        //answers count is set in Answers model using events eloquent
         'votes_count' => rand(-10,10),
     ];
 });
