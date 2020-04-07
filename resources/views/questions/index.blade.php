@@ -39,7 +39,10 @@
                                             <h4><a href="{{$question->url}}">{{$question->title}}</a></h4>
                                         </div>
                                         <div class="d-flex flex-row">
+                                            @can('update', $question)
                                             <a href="{{route('questions.edit',$question->id)}}" class="btn btn-sm btn-outline-info mr-2">Edit</a>
+                                            @endcan
+                                            @can('delete', $question)
                                             <form action="{{route('questions.destroy',$question->id)}}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
@@ -50,6 +53,7 @@
                                                     Delete
                                                 </button>
                                             </form>
+                                                @endcan
                                         </div>
                                     </div>
                                     <p>

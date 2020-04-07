@@ -68,44 +68,56 @@ class QuestionsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Question  $question
+     * @param  \App\Question $question
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function edit(Question $question)
     {
-        return view('questions.edit',compact("question"));
+        if($this->authorize('update',$question))
+        {
+            return view('questions.edit',compact("question"));
+        }
+        abort(403,'Access Denied');
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Question  $question
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Question $question
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(UpdateQuestionRequest $request, Question $question)
     {
-        $question->update([
-            "title" => $request->title,
-            "body" => $request->body,
-        ]);
+        if($this->authorize('update',$question)) {
+            $question->update([
+                "title" => $request->title,
+                "body" => $request->body,
+            ]);
 
-        session()->flash('success','Question has been Modified successfully');
-        return redirect(route('questions.index'));
+            session()->flash('success', 'Question has been Modified successfully');
+            return redirect(route('questions.index'));
+        }
+        abort(403, 'Access denied');
 
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Question  $question
+     * @param  \App\Question $question
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(Question $question)
     {
-        $question->delete();
-        session()->flash('success','Question has been deleted successfully');
-        return redirect(route('questions.index'));
-
+        if($this->authorize('delete',$question)) {
+            $question->delete();
+            session()->flash('success', 'Question has been deleted successfully');
+            return redirect(route('questions.index'));
+        }
+        abort(403, 'Access Denied');
     }
 }

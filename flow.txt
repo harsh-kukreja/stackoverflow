@@ -9,4 +9,6 @@ toh php artisan vendor:publish toh iske liye apne ko paginate vala opetion dalne
 
 Accesser in Question
 
+Laravel policy and gates to authorize my buttons jabhi check karna hai ki yeh vala user ne add kiya hai kya question ko
+
 
