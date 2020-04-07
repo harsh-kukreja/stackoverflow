@@ -24,7 +24,7 @@ class Question extends BaseModel
     //accessor method
 
     public function getUrlAttribute(){
-        return "questions/{$this->id}";
+        return "questions/{$this->slug}";
     }
 
     public function getCreatedDateAttribute()
