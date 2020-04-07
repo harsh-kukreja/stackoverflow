@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Questions\CreateQuestionRequest;
+use App\Http\Requests\Questions\UpdateQuestionRequest;
 use App\Question;
 use Illuminate\Http\Request;
 
 class QuestionsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth'])->except(['index','show']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -26,18 +33,24 @@ class QuestionsController extends Controller
      */
     public function create()
     {
-        //
+        return view('questions.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param CreateQuestionRequest $request
+     * @return void
      */
-    public function store(Request $request)
+    public function store(CreateQuestionRequest $request)
     {
-        //
+        auth()->user()->questions()->create([
+            'title' => $request->title,
+            'body' => $request->body,
+        ]);
+
+        session()->flash('success','Question has been added successfully');
+        return redirect(route('questions.index'));
     }
 
     /**
@@ -59,7 +72,7 @@ class QuestionsController extends Controller
      */
     public function edit(Question $question)
     {
-        //
+        return view('questions.edit',compact("question"));
     }
 
     /**
@@ -69,9 +82,16 @@ class QuestionsController extends Controller
      * @param  \App\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Question $question)
+    public function update(UpdateQuestionRequest $request, Question $question)
     {
-        //
+        $question->update([
+            "title" => $request->title,
+            "body" => $request->body,
+        ]);
+
+        session()->flash('success','Question has been Modified successfully');
+        return redirect(route('questions.index'));
+
     }
 
     /**
