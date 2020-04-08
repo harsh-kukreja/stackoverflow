@@ -32,7 +32,25 @@
 
                             {{--                        to display user info of owner--}}
                             <div class="d-flex justify-content-between">
-                                <div></div>
+                                <div  class="d-flex flex-row">
+                                    @can('update', $answer)
+                                        <div>
+                                            <a href="{{route('questions.answers.edit',[$question->id,$answer->id])}}" class="btn btn-sm btn-outline-info mr-2">Edit</a>
+                                        </div>
+                                    @endcan
+                                    @can('delete', $answer)
+                                        <form action="{{route('questions.answers.destroy',[$question->id,$answer->id])}}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                    onclick="return confirm('Do you want to delete')"
+                                                    class="btn btn-sm btn-outline-danger ">
+
+                                                Delete
+                                            </button>
+                                        </form>
+                                    @endcan
+                                </div>
                                 <div class="d-flex flex-column">
                                     <div class="text-muted flex-column">
                                         Answered  : {{ $answer->created_date }}

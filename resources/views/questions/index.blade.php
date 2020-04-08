@@ -40,7 +40,9 @@
                                         </div>
                                         <div class="d-flex flex-row">
                                             @can('update', $question)
-                                            <a href="{{route('questions.edit',$question->id)}}" class="btn btn-sm btn-outline-info mr-2">Edit</a>
+                                            <div>
+                                                <a href="{{route('questions.edit',$question->id)}}" class="btn btn-sm btn-outline-info mr-2">Edit</a>
+                                            </div>
                                             @endcan
                                             @can('delete', $question)
                                             <form action="{{route('questions.destroy',$question->id)}}" method="POST">
