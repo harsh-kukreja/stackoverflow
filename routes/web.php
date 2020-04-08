@@ -24,3 +24,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/questions','QuestionsController')->except('show');
 //After this check routeserviceprovider because hamko slug ke hisab se check karna hai not id iseleye usko modify karna padega
 Route::get('/questions/{slug}','QuestionsController@show')->name('questions.show');
+
+Route::resource('questions.answers','AnswersController')->except(['index','show','create']);

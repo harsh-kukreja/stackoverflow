@@ -27,7 +27,7 @@
                             </div>
                         </div>
 
-                        <div class="ml-5">
+                        <div class="ml-5 flex-fill">
                             {!! $answer->body !!}
 
                             {{--                        to display user info of owner--}}
@@ -35,7 +35,7 @@
                                 <div></div>
                                 <div class="d-flex flex-column">
                                     <div class="text-muted flex-column">
-                                        Asked  : {{ $answer->created_date }}
+                                        Answered  : {{ $answer->created_date }}
                                     </div>
                                     <div class="d-flex mb-2">
                                         <div>
