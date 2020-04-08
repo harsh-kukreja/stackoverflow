@@ -85,7 +85,7 @@ class AnswersController extends Controller
     public function update(UpdateAnswerRequest $request, Question $question,Answer $answer)
     {
         $this->authorize('update',$answer);
-        $question->answers()->update([
+        $answer->update([
             "body" => $request->body,
         ]);
 
