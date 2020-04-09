@@ -65,7 +65,7 @@ class AnswerPolicy
      */
     public function delete(User $user, Answer $answer)
     {
-        return $user->id == $answer->author->id;
+        return $user->id === $answer->author->id && $answer->question->best_answer_id != $answer->id ;
     }
 
     /**
@@ -90,5 +90,10 @@ class AnswerPolicy
     public function forceDelete(User $user, Answer $answer)
     {
         //
+    }
+
+    public function markAsBest(User $user, Answer $answer)
+    {
+        return $user->id == $answer->question->user_id;
     }
 }
