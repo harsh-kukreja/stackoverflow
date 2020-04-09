@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class Question extends BaseModel
@@ -16,6 +17,11 @@ class Question extends BaseModel
         return $this->hasMany(Answer::class);
     }
 
+    public function favorites()
+    {
+        return $this->belongsToMany(User::class)->withTimestamps();
+    }
+
     //Mutator, kyu use karre kyuki meko koi toh event chahye like apne case me title tha and slug is related to slug title: 'hi lraveel' slug 'hi-lraveel' iseleye relate karle
 
 //    The syntax is as followed abhi hamne isko call kiya iseleye apne toh apni responsibility hai dalne ki title ko
@@ -28,7 +34,7 @@ class Question extends BaseModel
     //accessor method
 
     public function getUrlAttribute(){
-        return "questions/{$this->slug}";
+        return "/questions/{$this->slug}";
     }
 
     public function getCreatedDateAttribute()
@@ -54,5 +60,16 @@ class Question extends BaseModel
     {
         $this->best_answer_id = $answer->id;
         $this->save();
+    }
+
+    public function getFavoritesCountAttribute()
+    {
+        return $this->favorites->count();
+    }
+
+    public function getIsFavoriteAttribute()
+    {
+        //checking current user marked it as fav or not
+        return $this->favorites()->where('user_id',Auth::id())->count() > 0;
     }
 }
